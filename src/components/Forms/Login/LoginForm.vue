@@ -58,7 +58,7 @@
                 d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"
               />
             </svg>
-            <span>{{ showPassword ? "Hide" : "Show" }}</span>
+            <span>{{ showPassword ? 'Hide' : 'Show' }}</span>
           </button>
         </div>
 
@@ -96,33 +96,36 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from "vue";
+import { defineComponent, ref, computed } from 'vue';
+import { useRouter } from 'vue-router'; // Import Vue Router
 
 export default defineComponent({
-  name: "LoginForm",
+  name: 'LoginForm',
   setup() {
-    const email = ref("");
-    const password = ref("");
+    const email = ref('');
+    const password = ref('');
     const showPassword = ref(false);
-    const errorMessage = ref("");
-    const emailError = ref("");
+    const errorMessage = ref('');
+    const emailError = ref('');
+    const router = useRouter(); // Initialize Vue Router
 
     // Email validation function
     const validateEmail = () => {
       const emailRegex = /^[^@]+@[^@]+\.(com|ph)$/;
       if (!emailRegex.test(email.value)) {
-        emailError.value = "Invalid email. Must contain '@' and end with '.com' or '.ph'.";
+        emailError.value =
+          "Invalid email. Must contain '@' and end with '.com' or '.ph'.";
       } else {
-        emailError.value = "";
+        emailError.value = '';
       }
     };
 
     // Check if form is valid
     const isFormValid = computed(() => {
       return (
-        email.value.trim() !== "" &&
-        password.value.trim() !== "" &&
-        emailError.value === ""
+        email.value.trim() !== '' &&
+        password.value.trim() !== '' &&
+        emailError.value === ''
       );
     });
 
@@ -130,10 +133,11 @@ export default defineComponent({
       validateEmail();
       if (emailError.value) return;
 
-      if (email.value === "admin@gmail.com" && password.value === "admin") {
-        alert("Login successful");
+      if (email.value === 'admin@gmail.com' && password.value === 'admin') {
+        // Navigate to dashboard after successful login
+        router.push('/dashboard');
       } else {
-        errorMessage.value = "Invalid email or password";
+        errorMessage.value = 'Invalid email or password';
       }
     };
 
