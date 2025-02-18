@@ -97,7 +97,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed } from 'vue';
-import { useRouter } from 'vue-router'; // Import Vue Router
+import { useRouter } from 'vue-router';
 
 export default defineComponent({
   name: 'LoginForm',
@@ -107,9 +107,8 @@ export default defineComponent({
     const showPassword = ref(false);
     const errorMessage = ref('');
     const emailError = ref('');
-    const router = useRouter(); // Initialize Vue Router
+    const router = useRouter();
 
-    // Email validation function
     const validateEmail = () => {
       const emailRegex = /^[^@]+@[^@]+\.(com|ph)$/;
       if (!emailRegex.test(email.value)) {
@@ -120,7 +119,6 @@ export default defineComponent({
       }
     };
 
-    // Check if form is valid
     const isFormValid = computed(() => {
       return (
         email.value.trim() !== '' &&
@@ -134,7 +132,6 @@ export default defineComponent({
       if (emailError.value) return;
 
       if (email.value === 'admin@gmail.com' && password.value === 'admin') {
-        // Navigate to dashboard after successful login
         router.push('/dashboard');
       } else {
         errorMessage.value = 'Invalid email or password';
