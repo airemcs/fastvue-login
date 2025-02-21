@@ -15,6 +15,7 @@
       </button>
     </div>
 
+    <!-- TODO: Component -->
     <table class="w-full table-auto">
       <thead>
         <tr class="bg-gray-200">
@@ -147,6 +148,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 
+// TODO: Types
 interface User {
   firstName: string;
   middleName: string;
@@ -176,6 +178,7 @@ const modalTitle = computed(() => (isEditing.value ? 'Edit User' : 'Create New U
 
 const searchQuery = ref('');
 
+// TODO: API?
 const filteredUsers = computed(() => {
   return users.value.filter(user =>
     user.firstName.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
@@ -223,6 +226,7 @@ const editUser = (user: User) => {
   openEditModal(user);
 };
 
+// TODO: API?
 const deleteUser = (username: string) => {
   const index = users.value.findIndex(user => user.username === username);
   if (index !== -1) {

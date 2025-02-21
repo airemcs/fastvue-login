@@ -119,6 +119,7 @@ export default defineComponent({
       }
     };
 
+    // TODO: Validation?
     const isFormValid = computed(() => {
       return (
         email.value.trim() !== '' &&
@@ -127,6 +128,7 @@ export default defineComponent({
       );
     });
 
+    // TODO: Validation?
     const handleSubmit = () => {
       validateEmail();
       if (emailError.value) return;
@@ -142,6 +144,7 @@ export default defineComponent({
       showPassword.value = !showPassword.value;
     };
 
+    // TODO: Types?
     return {
       email,
       password,
