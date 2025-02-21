@@ -7,15 +7,11 @@
         placeholder="Search..."
         class="p-2 rounded-md border border-gray-300"
       />
-      <button
-        @click="openCreateModal"
-        class="bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700"
-      >
+      <Button @click="openCreateModal" variant="primary">
         Create New User
-      </button>
+      </Button>
     </div>
 
-    <!-- TODO: Component -->
     <table class="w-full table-auto">
       <thead>
         <tr class="bg-gray-200">
@@ -25,7 +21,7 @@
           <th class="px-4 py-2 text-left">Username</th>
           <th class="px-4 py-2 text-left">Email</th>
           <th class="px-4 py-2 text-left">Role</th>
-          <th class="px-4 py-2 text-left">Actions</th>
+          <th class="px-4 py-2 text-left"></th>
         </tr>
       </thead>
       <tbody>
@@ -41,103 +37,56 @@
           <td class="px-4 py-2">{{ user.email }}</td>
           <td class="px-4 py-2">{{ user.role }}</td>
           <td class="px-4 py-2">
-            <button
-              @click="editUser(user)"
-              class="bg-yellow-500 text-white p-2 rounded-md mr-2 hover:bg-yellow-600"
-            >
+            <Button @click="editUser(user)" variant="warning" class="mr-2">
               Edit
-            </button>
-            <button
-              @click="deleteUser(user.username)"
-              class="bg-red-600 text-white p-2 rounded-md hover:bg-red-700"
-            >
+            </Button>
+            <Button @click="deleteUser(user.username)" variant="danger">
               Delete
-            </button>
+            </Button>
           </td>
         </tr>
       </tbody>
     </table>
 
-    <div
-      v-if="showModal"
-      class="fixed inset-0 flex justify-center items-center bg-gray-500 bg-opacity-50"
-    >
+    <div v-if="showModal" class="fixed inset-0 flex justify-center items-center bg-gray-500 bg-opacity-50">
       <div class="bg-white p-6 rounded-md w-96">
         <h3 class="text-xl font-bold mb-4">{{ modalTitle }}</h3>
         <form @submit.prevent="handleSubmit">
           <div class="mb-4">
             <label for="firstName" class="block text-sm font-medium">First Name</label>
-            <input
-              v-model="newUser.firstName"
-              type="text"
-              id="firstName"
-              required
-              class="w-full p-2 border border-gray-300 rounded-md"
-            />
+            <input v-model="newUser.firstName" type="text" id="firstName" required class="w-full p-2 border border-gray-300 rounded-md" />
           </div>
           <div class="mb-4">
             <label for="middleName" class="block text-sm font-medium">Middle Name</label>
-            <input
-              v-model="newUser.middleName"
-              type="text"
-              id="middleName"
-              class="w-full p-2 border border-gray-300 rounded-md"
-            />
+            <input v-model="newUser.middleName" type="text" id="middleName" class="w-full p-2 border border-gray-300 rounded-md" />
           </div>
           <div class="mb-4">
             <label for="lastName" class="block text-sm font-medium">Last Name</label>
-            <input
-              v-model="newUser.lastName"
-              type="text"
-              id="lastName"
-              required
-              class="w-full p-2 border border-gray-300 rounded-md"
-            />
+            <input v-model="newUser.lastName" type="text" id="lastName" required class="w-full p-2 border border-gray-300 rounded-md" />
           </div>
           <div class="mb-4">
             <label for="username" class="block text-sm font-medium">Username</label>
-            <input
-              v-model="newUser.username"
-              type="text"
-              id="username"
-              required
-              class="w-full p-2 border border-gray-300 rounded-md"
-            />
+            <input v-model="newUser.username" type="text" id="username" required class="w-full p-2 border border-gray-300 rounded-md" />
           </div>
           <div class="mb-4">
             <label for="email" class="block text-sm font-medium">Email</label>
-            <input
-              v-model="newUser.email"
-              type="email"
-              id="email"
-              required
-              class="w-full p-2 border border-gray-300 rounded-md"
-            />
+            <input v-model="newUser.email" type="email" id="email" required class="w-full p-2 border border-gray-300 rounded-md" />
           </div>
-
           <div class="mb-4">
             <label for="role" class="block text-sm font-medium">Role</label>
-            <select
-              v-model="newUser.role"
-              id="role"
-              class="w-full p-2 border border-gray-300 rounded-md"
-            >
+            <select v-model="newUser.role" id="role" class="w-full p-2 border border-gray-300 rounded-md">
               <option>User</option>
               <option>Admin</option>
             </select>
           </div>
 
           <div class="flex justify-end gap-2">
-            <button
-              type="button"
-              @click="closeModal"
-              class="bg-gray-300 text-black p-2 rounded-md"
-            >
+            <Button type="button" @click="closeModal" variant="secondary">
               Cancel
-            </button>
-            <button type="submit" class="bg-blue-600 text-white p-2 rounded-md">
+            </Button>
+            <Button type="submit" variant="primary">
               {{ isEditing ? 'Update User' : 'Create User' }}
-            </button>
+            </Button>
           </div>
         </form>
       </div>
@@ -147,8 +96,8 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
+import Button from '../../components/Base/Button.vue';
 
-// TODO: Types
 interface User {
   firstName: string;
   middleName: string;
@@ -178,7 +127,6 @@ const modalTitle = computed(() => (isEditing.value ? 'Edit User' : 'Create New U
 
 const searchQuery = ref('');
 
-// TODO: API?
 const filteredUsers = computed(() => {
   return users.value.filter(user =>
     user.firstName.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
@@ -189,14 +137,7 @@ const filteredUsers = computed(() => {
 
 const openCreateModal = () => {
   isEditing.value = false;
-  newUser.value = {
-    firstName: '',
-    middleName: '',
-    lastName: '',
-    username: '',
-    email: '',
-    role: 'User',
-  };
+  newUser.value = { firstName: '', middleName: '', lastName: '', username: '', email: '', role: 'User' };
   showModal.value = true;
 };
 
@@ -226,7 +167,6 @@ const editUser = (user: User) => {
   openEditModal(user);
 };
 
-// TODO: API?
 const deleteUser = (username: string) => {
   const index = users.value.findIndex(user => user.username === username);
   if (index !== -1) {
