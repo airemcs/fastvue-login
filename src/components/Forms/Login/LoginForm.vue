@@ -1,41 +1,45 @@
 <template>
-  <div class="flex justify-center items-center h-screen bg-gray-100">
-    <form
-      @submit.prevent="handleSubmit"
-      class="p-6 rounded-lg w-full max-w-md bg-white shadow"
-    >
-      <p class="text-2xl font-bold text-black">Login</p>
+<div class="flex justify-center items-center h-screen bg-gray-100">
+  
+  <form
+    @submit.prevent="handleSubmit"
+    class="p-6 rounded-lg w-full max-w-md bg-white shadow"
+  >
 
-      <InputField
-        id="email"
-        label="Email"
-        type="text"
-        v-model="email"
-        placeholder="Enter email"
-        :error-message="emailError"
-      />
-      
-      <InputField
-        id="password"
-        label="Password"
-        type="password"
-        v-model="password"
-        placeholder="Enter password"
-      />
+    <p class="text-2xl font-bold text-black mb-4">Fast-Vue Login</p>
 
-      <Button :disabled="!isFormValid">Log In</Button>
+    <InputField
+      id="email"
+      label="Email"
+      type="text"
+      v-model="email"
+      placeholder="Enter email"
+      :error-message="emailError"
+    />
+    
+    <InputField
+      id="password"
+      label="Password"
+      type="password"
+      v-model="password"
+      placeholder="Enter password"
+    />
 
-      <p v-if="errorMessage" class="text-red-500 mt-2 text-center font-medium">
-        {{ errorMessage }}
-      </p>
+    <Button :disabled="!isFormValid">Log In</Button>
 
-      <div class="mt-8 flex w-full justify-center gap-1 text-gray-500 font-medium">
-        <a href="#" class="underline text-sm">Privacy Policy</a>
-        <span>-</span>
-        <a href="#" class="underline text-sm">Terms and Conditions</a>
-      </div>
-    </form>
-  </div>
+    <p v-if="errorMessage" class="text-red-500 mt-2 text-center font-medium">
+      {{ errorMessage }}
+    </p>
+
+    <div class="mt-8 flex w-full justify-center gap-1 text-gray-500 font-medium">
+      <a href="#" class="underline text-sm">Privacy Policy</a>
+      <span>-</span>
+      <a href="#" class="underline text-sm">Terms and Conditions</a>
+    </div>
+
+  </form>
+
+</div>
 </template>
 
 <script setup lang="ts">
@@ -72,6 +76,6 @@ const handleSubmit = (): void => {
 
 watch([email, password], () => {
   validateEmail();
-  errorMessage.value = ''; // Reset error when user types
+  errorMessage.value = '';
 });
 </script>
